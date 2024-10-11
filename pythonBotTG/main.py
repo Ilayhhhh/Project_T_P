@@ -52,5 +52,5 @@ def calculate_kbju(message):
     except Exception as e:
         bot.reply_to(message, str(e))
 
-if name == 'main':
+if __name__ == 'main':
     bot.polling()
