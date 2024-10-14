@@ -1,11 +1,11 @@
 import telebot
 
-API = '7905332994:AAH5_aNNKSXRKf8-muk8I9hhm3V_wPWOT4I'
+API = "7797110821:AAFjgZLUAot0Gir_ke_Zml4enBUNkKe1pLg"
 bot = telebot.TeleBot(API)
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.reply_to(message, "Добро пожаловать! Я помогу вам рассчитать ваши КБЖУ. Введите ваш вес (кг), рост (см) и уровень активности (1 - низкий, 2 - средний, 3 - высокий) в формате:\n"
+    bot.reply_to(message, "Добро пожаловать! Я помогу вам рассчитать ваши КБЖУ. Введите ваш вес (кг), рост (см), возраст (лет) и уровень активности (1 - низкий, 2 - средний, 3 - высокий) в формате:\n"
                           "вес рост уровень активности")
 
 @bot.message_handler(func=lambda message: True)
@@ -13,15 +13,16 @@ def calculate_kbju(message):
     try:
         # Раздел сообщение на части
         data = message.text.split()
-        if len(data) != 3:
-            raise ValueError("Неправильный формат. Введите три числа: вес, рост и уровень активности.")
+        if len(data) != 4:
+            raise ValueError("Неправильный формат. Введите три числа: вес, рост, возраст и уровень активности.")
 
-        weight = float(data[0])  # вес
-        height = float(data[1])  # рост
-        activity_level = int(data[2])  # активность
+        ves = float(data[0])  # вес
+        rost = float(data[1]) # рост
+        vozr = float(data[2])#возраст
+        activity_level = int(data[3])  # активность
 
         #  базовый метаболизма (формула от сент жеор чет такое)
-        bmr = 10 * weight + 6.25 * height - 5 * 30 + 5
+        bmr = 5 + (10*ves)+(6.25*rost)-(5*vozr)
 
         # Коэф активн
         activity_mul = {
