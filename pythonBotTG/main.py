@@ -20,6 +20,8 @@ def calculate_kbju(message):
         rost = float(data[1]) # рост
         vozr = float(data[2])#возраст
         activity_level = int(data[3])  # активность
+        if ves <= 0 or rost <= 0 or vozr <= 0:
+            raise ValueError("Вес, рост и возраст не могут быть отрицательными числами.")
 
         #  базовый метаболизма (формула от сент жеор чет такое)
         bmr = 5 + (10*ves)+(6.25*rost)-(5*vozr)
@@ -53,5 +55,5 @@ def calculate_kbju(message):
     except Exception as e:
         bot.reply_to(message, str(e))
 
-if __name__ == 'main':
+if __name__ == '__main__':
     bot.polling()
