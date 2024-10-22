@@ -13,25 +13,31 @@ def send_info(message):
 
 @bot.message_handler(commands=['calculate'])
 def ask_for_data(message):
-    bot.send_message(message.chat.id, "Пожалуйста, введите ваши данные в формате:\n вес рост возраст уровень активности")
+    bot.send_message(message.chat.id, "Пожалуйста, введите ваши данные в формате:\n пол вес рост возраст уровень активности\nПример: ж 65 170 25 2")
 
-@bot.message_handler(func=lambda message: len(message.text.split()) == 4)
+@bot.message_handler(func=lambda message: len(message.text.split()) == 5)
 def calculate_kbju(message):
     try:
         # Разделение сообщения на части
         data = message.text.split()
-        if len(data) != 4:
-            raise ValueError("Неправильный формат. Введите четыре числа: вес, рост, возраст и уровень активности.")
-        ves = float(data[0])  # вес
-        rost = float(data[1])  # рост
-        vozr = float(data[2])  # возраст
-        activity_level = int(data[3])  # уровень активности
+        if len(data) != 5:
+            raise ValueError("Неправильный формат. Введите пять параметров: пол, вес, рост, возраст и уровень активности.")
+        
+        sex = data[0].lower()  # пол
+        ves = float(data[1])  # вес
+        rost = float(data[2])  # рост
+        vozr = float(data[3])  # возраст
+        activity_level = int(data[4])  # уровень активности
 
         if ves <= 0 or rost <= 0 or vozr <= 0:
             raise ValueError("Вес, рост и возраст не могут быть отрицательными числами")
 
-        # Базовый метаболизм (формула от Сен Жора)
-        bmr = 9 * ves + 6.25 * rost - 5 * vozr + 5  # Формула для мужчин
+        if sex == 'м':
+            bmr = 9 * ves + 6.25 * rost - 5 * vozr + 5  # Формула для мужчин
+        elif sex == 'ж':
+            bmr = 9 * ves + 6.25 * rost - 5 * vozr - 161  # Формула для женщин
+        else:
+            raise ValueError("Пол должен быть 'м' для мужчин или 'ж' для женщин.")
 
         # Коэффициенты активности
         activity_mul = {
