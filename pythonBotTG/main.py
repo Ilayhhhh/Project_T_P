@@ -13,7 +13,7 @@ def send_info(message):
 
 @bot.message_handler(commands=['calculate'])
 def ask_for_data(message):
-    bot.send_message(message.chat.id, "Пожалуйста, введите ваши данные в формате:\n вес рост возраст уровень активности")
+    bot.send_message(message.chat.id, "Пожалуйста, введите ваши данные - пол, вес, рост, возраст и уровень активности, где уровень физической активности измеряется в: \n 1( Малоподвижный образ жизни) \n 2(Умеренная активность) \n 3(Активно занимающийся спортом).\n\n Пример: ж 65 170 25 2")
 
 @bot.message_handler(func=lambda message: len(message.text.split()) == 4)
 def calculate_kbju(message):
