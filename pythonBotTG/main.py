@@ -24,7 +24,7 @@ def send_info(call):
 @bot.callback_query_handler(func=lambda call: call.data == "calculate")
 def ask_for_data(call):
     bot.answer_callback_query(call.id)
-    bot.send_message(call.message.chat.id, "Пожалуйста, введите ваши данные в формате:\n пол вес рост возраст уровень активности\n Пример: ж 65 170 25 2")
+    bot.send_message(call.message.chat.id, "Пожалуйста, введите ваши данные - пол, вес, рост, возраст и уровень активности, где уровень физической активности измеряется в: \n 1( Малоподвижный образ жизни) \n 2(Умеренная активность) \n 3(Активно занимающийся спортом).\n\n Пример: ж 65 170 25 2")
 
 @bot.message_handler(func=lambda message: len(message.text.split()) == 5)
 def calculate_kbju(message):
