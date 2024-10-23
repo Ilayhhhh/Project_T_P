@@ -1,3 +1,4 @@
+user_states = {}  # Словарь для хранения состояния пользователей
 @bot.message_handler(commands=['soveti'])
 def ask_for_proda(message):
     user_states[message.chat.id] = 'waiting_for_response'  # Устанавливаем состояние
