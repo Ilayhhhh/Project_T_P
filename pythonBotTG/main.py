@@ -85,4 +85,7 @@ def handle_user_response(message):
     elif message.text.lower() == "4":
         bot.send_message(message.chat.id,"Для людей, исключающих мясные и молочные продукты, предлагаем ознакомиться с проверенными источниками.\n 1) Ролик о полноценном меню на неделю https://yandex.ru/video/preview/3342349212361481234 \n 2) Как сбалансирорвать рацион https://77.rospotrebnadzor.ru/index.php/press-centr/186-press-centr/12308-vegetarianstvo-kak-sbalansirovat-ratsion-01-11-2023 \n 3) Рецепты, искалючающие мясные и молочные продукты https://1000.menu/meals/13-4717")
     user_states[message.chat.id] = None  # Сбрасываем состояние после обработки ответа
-bot.polling(none_stop=True)
+try:
+    bot.polling(none_stop=True)
+except Exception as e:
+    print(f"Error:{e}")
